@@ -10,6 +10,8 @@ add_filter( 'gettext', function( $translated_text, $text, $domain ) {
         'Search for someone...' => 'Search for someone change...',
         'No conversations yet' => 'No conversations yet change',
         'Start a new conversation to get started' => 'Start a new conversation to get started change',
+        'Type a message...' => 'Type a message change',
+        'Reply to message' => 'Reply to message change',
         'Original Text 3' => 'My New Text 3',
         // Add more as needed
     ];
