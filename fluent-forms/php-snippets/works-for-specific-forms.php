@@ -1,19 +1,8 @@
 <?php
-  add_filter('fluentform/insert_response_data', function ($formData, $formId, $inputConfigs) {
-      if ((int) $formId !== 128) {
-          return $formData;
+  add_filter('fluentform/response_render_textarea', function ($value, $field, $formId, $isHtml) {
+      if ((int) $formId !== 128 || !$isHtml || !is_string($value)) {
+          return $value;
       }
-      foreach ($inputConfigs as $fieldName => $field) {
-          if (($field['element'] ?? '') !== 'textarea') {
-              continue;
-          }
-          if (empty($formData[$fieldName]) || !is_string($formData[$fieldName])) {
-              continue;
-          }
-          $value = str_replace(["\r\n", "\r"], "\n", $formData[$fieldName]);
-          $value = preg_replace('/[ \t]+$/m', '', $value);
-          $value = preg_replace("/\n{2,}/", "\n", $value);
-          $formData[$fieldName] = trim($value);
-      }
-      return $formData;
-  }, 10, 3);
+
+      return preg_replace('/(<br\s*\/?>\s*){2,}/i', '<br />', $value);
+  }, 20, 4);
